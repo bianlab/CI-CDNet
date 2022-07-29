@@ -1,4 +1,4 @@
-# Complex-domain enhacing neural nwtwork for large-scale coherent imaging
+# Complex-domain enhacing neural network for large-scale coherent imaging
 
 This repository contains the code for complex-domain neural nwtwork (CI-CDNet). For more information, please contact Liheng Bian (bian at bit dot edu dot cn).
 
