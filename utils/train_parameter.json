@@ -1,0 +1,50 @@
+{
+  "task": "denoising"  //  root/task
+  , "model": "CI_CDNet"
+  , "gpu_ids": [0]
+
+  , "path": {
+    "root": "results/Train_results"
+  }
+
+  , "datasets": {
+    "train": {
+      "name": "train_dataset"           // just name
+      , "dataroot_GT": "datasets/trainsets/groundtruth"// path of ground truth training dataset，
+      , "dataroot_Noisy": "datasets/trainsets/noisy"              // path of training dataset with noise
+      , "P_size": 128                    // patch size 40 | 64 | 96 | 128 | 192
+      , "dataloader_shuffle": true
+      , "dataloader_num_workers": 4   //8  4
+      , "dataloader_batch_size": 1     // batch size 1 | 16 | 32 √| 48 | 64 | 128
+    }
+    , "valid": {
+      "name": "valid_dataset"            // just name
+      , "dataroot_GT": "datasets/testsets/GroundTruth"  // path of ground truth valid dataset
+      , "dataroot_Noisy": "datasets/testsets/Noisy"              // path of valid dataset with nosie
+    }
+  }
+
+  , "net": {
+     "in_nc": 2        // input channel number
+    , "out_nc": 1       // ouput channel number
+    , "nc": [64, 128, 256, 512]
+    , "upsample_mode": "convtranspose"
+    , "downsample_mode": "strideconv"
+    , "bias": false //
+    , "init_type": "kaiming"
+    , "init_bn_type": "uniform"
+    , "init_gain": 0.2
+  }
+
+  , "train": {
+    "lossfn_type": "l1"
+    , "optimizer_type": "adam"        // fixed, adam is enough
+    , "optimizer_lr": 5e-5           // learning rate
+    , "scheduler_type": "MultiStepLR"
+    , "scheduler_milestones": [100000,200000,250000,270000]
+    , "scheduler_gamma": 0.5
+    , "checkpoint_valid": 5         // for testing 2000
+    , "checkpoint_save": 5          // for saving model 2000
+    , "checkpoint_print": 1           // for print 200
+  }
+}
